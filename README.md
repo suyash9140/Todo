@@ -41,7 +41,7 @@ A simple and secure ToDo application built with **React**, **Node.js**, **Expres
 
 ```
 📦 todo-app
-├── 📂 client (Frontend)
+├── 📂 to-do (Frontend)
 │   ├── 📄 App.jsx
 │   ├── 📄 Home.jsx
 │   ├── 📄 Login.jsx
