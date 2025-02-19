@@ -33,8 +33,7 @@ mongoose
     process.exit(1); // Exit if MongoDB fails
   });
 
-// Run the expired task checker every 5 minutes
-setInterval(updateExpiredTasks, 100000);
+setInterval(updateExpiredTasks, 1000);
 
 // Authentication Routes
 app.use('/auth', authRoutes);
@@ -43,7 +42,7 @@ app.use('/auth', authRoutes);
 app.get('/get', authMiddleware, (req, res) => {
   const { search } = req.query; // Search term for filtering tasks
 
-  // If there's a search query, filter by task or description
+
   const searchQuery = search
     ? { 
         $or: [

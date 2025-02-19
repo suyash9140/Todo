@@ -7,12 +7,12 @@ function Create() {
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
 
-  // Use effect to set the deadline to current IST time when component loads
+
   useEffect(() => {
-    const indiaTimeZoneOffset = 5.5 * 60; // IST is UTC +5:30
+    const indiaTimeZoneOffset = 5.5 * 60; 
     const indiaDate = new Date(new Date().getTime() + indiaTimeZoneOffset * 60 * 1000);
     
-    // Format it to match the 'datetime-local' input format (YYYY-MM-DDTHH:mm)
+   
     const formattedDate = indiaDate.toISOString().slice(0, 16); 
     setDeadline(formattedDate);
   }, []);
@@ -20,31 +20,31 @@ function Create() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token"); // Retrieve token from local storage
+    const token = localStorage.getItem("token"); 
 
     if (!token) {
         alert("Unauthorized! Please log in.");
         return;
     }
 
-    // Convert the selected deadline to IST (Indian Standard Time)
-    const localDate = new Date(deadline); // Local time in IST
-    const indiaDate = new Date(localDate.getTime() - (5.5 * 60 * 60 * 1000)); // Convert to IST manually
+  
+    const localDate = new Date(deadline); 
+    const indiaDate = new Date(localDate.getTime() - (5.5 * 60 * 60 * 1000)); 
 
     try {
         await axios.post(
             `${import.meta.env.VITE_API_URL}/add`,
             { task,description, deadline: indiaDate.toISOString() },
             {
-                headers: { Authorization: token}, // Send token
+                headers: { Authorization: token},
             }
         ).then(response => console.log(response.data))
         .catch(error => console.log("Error:", error));
 
         setTask("");
         setDescription("");
-        setDeadline(""); // Reset the form
-        window.location.reload(); // Reload page to show the new task
+        setDeadline(""); 
+        window.location.reload(); 
     } catch (error) {
         console.error("Error creating task:", error);
         alert("Error: " + (error.response?.data?.message || error.message));

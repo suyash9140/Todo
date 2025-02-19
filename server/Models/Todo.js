@@ -6,7 +6,7 @@ const TodoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: { // Optional description field
+  description: { 
     type: String,
   },
   deadline: {
@@ -38,7 +38,7 @@ async function updateExpiredTasks() {
     const indiaOffset = 5.5 * 60 * 60 * 1000;  // IST is UTC + 5.5 hours
     const nowIst = new Date(nowUtc.getTime() + indiaOffset);
 
-    console.log(`Current time (IST): ${nowIst.toISOString()}`);
+    
 
     // Update tasks where deadline is before the current IST time
     const result = await TodoModel.updateMany(
@@ -49,7 +49,7 @@ async function updateExpiredTasks() {
       { $set: { status: "EXPIRED" } }
     );
 
-    console.log(`Updated ${result.modifiedCount} tasks to EXPIRED.`);
+    
   } catch (error) {
     console.error("Error updating expired tasks:", error);
   }
