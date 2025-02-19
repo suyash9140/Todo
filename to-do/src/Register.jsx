@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
 
 import "./App.css"
 
@@ -20,7 +20,7 @@ function Register() {
             
 
             alert("Registration successful! Please log in.");
-            navigate("/login");
+            window.location.href = "/login";
         } catch (error) {
             console.error("Registration error:", error.response ? error.response.data : error.message);
             alert("Error registering user: " + (error.response?.data?.message || "Unknown error"));
