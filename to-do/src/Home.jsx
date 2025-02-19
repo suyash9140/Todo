@@ -11,7 +11,7 @@ function Home() {
   
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/get?search=${search}`, {
+    axios.get(`${import.meta.env.VITE_API_URL}/get?search=${search}`, {
       headers: { Authorization: token },
     })
     .then(result => setTodos(result.data))
@@ -20,7 +20,7 @@ function Home() {
 
 
   const handleStatusChange = (id, newStatus) => {
-    axios.put(`${process.env.REACT_APP_API_URL}/update/${id}`, { status: newStatus },  {
+    axios.put(`${import.meta.env.VITE_API_URL}/update/${id}`, { status: newStatus },  {
       headers: { Authorization: token },
     })
       .then(() => window.location.reload()) // Refresh tasks after status update
@@ -28,7 +28,7 @@ function Home() {
   };
 
   const handleDelete = (id) => {
-    axios.delete(`${process.env.REACT_APP_API_URL}/delete/${id}`, {
+    axios.delete(`${import.meta.env.VITE_API_URL}/delete/${id}`, {
       headers: { Authorization: token },
     })
       .then(() => window.location.reload()) // Refresh tasks after deletion

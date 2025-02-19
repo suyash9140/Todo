@@ -33,7 +33,7 @@ function Create() {
 
     try {
         await axios.post(
-            `${process.env.REACT_APP_API_URL}/add`,
+            `${import.meta.env.VITE_API_URL}/add`,
             { task,description, deadline: indiaDate.toISOString() },
             {
                 headers: { Authorization: token}, // Send token
@@ -63,7 +63,7 @@ function Create() {
       />
       <input
         type="text"
-        placeholder="Enter description (Optional)"
+        placeholder="Enter description "
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required

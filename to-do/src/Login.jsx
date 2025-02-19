@@ -12,7 +12,7 @@ function Login() {
         e.preventDefault();
         try {
           console.log("Sending request:", { username, password });
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, { username, password });
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { username, password });
             console.log("Login successful:", res.data);
             localStorage.setItem("token", res.data.token); // Store token
             window.location.href = "/"; // Redirect to home

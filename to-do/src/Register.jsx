@@ -10,11 +10,12 @@ function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, { 
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, { 
                 username, 
                 email,  // Include email in the request
                 password 
             });
+            
 
             alert("Registration successful! Please log in.");
             window.location.href = "/login";
