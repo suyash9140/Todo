@@ -44,13 +44,20 @@ app.get('/get', authMiddleware, (req, res) => {
   const { search } = req.query; // Search term for filtering tasks
 
   // If there's a search query, filter by task or description
-  const searchQuery = search ? { $text: { $search: search } } : {};
+  const searchQuery = search
+    ? { 
+        $or: [
+          { task: { $regex: search, $options: "i" } }, // Case-insensitive search
+          { description: { $regex: search, $options: "i" } }
+        ]
+      }
+    : {}; 
 
-  TodoModel.find({
-    userId: req.user.id,
-    ...searchQuery,
-    status: { $ne: "COMPLETE" } // Exclude completed tasks
-  })
+    TodoModel.find({
+      userId: req.user.id,
+      ...searchQuery, 
+      status: { $ne: "COMPLETE" } // Exclude completed tasks
+    })
     .sort({
       status: 1, // Order tasks by status
       deadline: 1 // Earliest deadline first

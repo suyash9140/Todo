@@ -11,12 +11,28 @@ function Home() {
   
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/get?search=${search}`, {
-      headers: { Authorization: token },
-    })
-    .then(result => setTodos(result.data))
-    .catch(err => console.log(err));
-  }, [search]); // ✅ Only runs when search changes
+    if (!token) return;
+  
+    const delaySearch = setTimeout(() => {
+      axios
+        .get(`${import.meta.env.VITE_API_URL}/get?search=${search}`, {
+          headers: { Authorization: token },
+        })
+        .then((result) => {
+          console.log("API Response:", result.data); // 🔍 Debug API response
+          if (Array.isArray(result.data)) {
+            setTodos(result.data);
+          } else {
+            console.error("Expected an array but got:", result.data);
+            setTodos([]); // Default to empty array if response is unexpected
+          }
+        })
+        .catch((err) => console.log(err));
+    }, 300);
+  
+    return () => clearTimeout(delaySearch);
+  }, [search, token]);
+  
 
 
   const handleStatusChange = (id, newStatus) => {
