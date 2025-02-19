@@ -102,7 +102,7 @@ router.post("/forgot-password", async (req, res) => {
     console.log("Generated reset token:", token); // Debugging
 
     // Create Reset Link
-    const resetLink = `${process.env.REACT_APP_API_URL}/reset-password/${token}`;
+    const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
     console.log("Reset link:", resetLink); // Debugging
 
     // Send Email using Global Transporter
